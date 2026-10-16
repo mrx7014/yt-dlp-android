@@ -2,6 +2,8 @@ plugins { id("com.android.application"); id("org.jetbrains.kotlin.android"); id(
 
 android { namespace = "com.mrx7014.ytdlp"; compileSdk = 35
     defaultConfig { applicationId = "com.mrx7014.ytdlp"; minSdk = 26; targetSdk = 35; versionCode = 2; versionName = "1.0.0"; ndk { abiFilters += listOf("x86", "x86_64", "armeabi-v7a", "arm64-v8a") } }
+    compileOptions { sourceCompatibility = JavaVersion.VERSION_17; targetCompatibility = JavaVersion.VERSION_17 }
+    kotlinOptions { jvmTarget = "17" }
     buildFeatures { compose = true }
     packaging { resources.excludes += "/META-INF/{AL2.0,LGPL2.1}"; jniLibs.useLegacyPackaging = true }
 }
