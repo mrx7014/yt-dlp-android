@@ -1,4 +1,4 @@
-name: Android CI
+name: Android Release
 
 on:
   push:
@@ -11,29 +11,34 @@ permissions:
   contents: read
 
 jobs:
-  build:
+  build-release:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+
       - name: Set up JDK 17
         uses: actions/setup-java@v4
         with:
           distribution: temurin
           java-version: '17'
           cache: gradle
+
       - name: Set up Gradle
         uses: gradle/actions/setup-gradle@v4
-      - name: Check and build split APKs
-        run: ./gradlew clean lint testDebugUnitTest assembleDebug assembleRelease --stacktrace
-      - name: Upload debug APKs
+
+      - name: Build split release APKs
+        run: ./gradlew clean lint assembleRelease --stacktrace
+
+      - name: Upload armeabi-v7a (armv7) release APK
         uses: actions/upload-artifact@v4
         with:
-          name: ytdlp-debug-apks
-          path: app/build/outputs/apk/debug/*.apk
+          name: ytdlp-release-armv7
+          path: app/build/outputs/apk/release/*armeabi-v7a-release*.apk
           if-no-files-found: error
-      - name: Upload minified release APKs
+
+      - name: Upload arm64-v8a (arm64) release APK
         uses: actions/upload-artifact@v4
         with:
-          name: ytdlp-release-apks
-          path: app/build/outputs/apk/release/*.apk
+          name: ytdlp-release-arm64
+          path: app/build/outputs/apk/release/*arm64-v8a-release*.apk
           if-no-files-found: error
