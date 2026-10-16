@@ -4,3 +4,5 @@
 -keepattributes *Annotation*
 -keepattributes Signature
 -dontwarn com.yausername.**
+-dontwarn java.beans.**
+-dontwarn org.w3c.dom.**
