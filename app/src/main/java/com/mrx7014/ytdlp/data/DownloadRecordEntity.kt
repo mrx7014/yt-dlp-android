@@ -1,6 +1,7 @@
 package com.mrx7014.ytdlp.data
 
 import androidx.room.*
+import androidx.room.migration.Migration
 import androidx.sqlite.db.SupportSQLiteDatabase
 import kotlinx.coroutines.flow.Flow
 
