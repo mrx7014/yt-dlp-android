@@ -23,11 +23,17 @@ jobs:
           cache: gradle
       - name: Set up Gradle
         uses: gradle/actions/setup-gradle@v4
-      - name: Check and build
-        run: ./gradlew clean lint testDebugUnitTest assembleDebug --stacktrace
-      - name: Upload debug APK
+      - name: Check and build split APKs
+        run: ./gradlew clean lint testDebugUnitTest assembleDebug assembleRelease --stacktrace
+      - name: Upload debug APKs
         uses: actions/upload-artifact@v4
         with:
-          name: ytdlp-debug-apk
-          path: app/build/outputs/apk/debug/app-debug.apk
+          name: ytdlp-debug-apks
+          path: app/build/outputs/apk/debug/*.apk
+          if-no-files-found: error
+      - name: Upload minified release APKs
+        uses: actions/upload-artifact@v4
+        with:
+          name: ytdlp-release-apks
+          path: app/build/outputs/apk/release/*.apk
           if-no-files-found: error
